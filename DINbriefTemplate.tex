@@ -1,0 +1,158 @@
+%---------------------------------------------------------------------------
+% scrlttr2.tex v0.3. (c) by Juergen Fenn <juergen.fenn@gmx.de>
+% Template for a letter to be typeset with scrlttr2.cls from KOMA-Script.
+% Latest version of the LaTeX Project Public License is applicable. 
+% File may not be modified and redistributed under the same name 
+% without the author's prior consent.
+%---------------------------------------------------------------------------
+\documentclass%%
+%---------------------------------------------------------------------------
+  [fontsize=12pt,%%          Schriftgroesse
+%---------------------------------------------------------------------------
+% Satzspiegel
+   paper=a4,%%               Papierformat
+   enlargefirstpage=on,%%    Erste Seite anders
+   pagenumber=headright,%%   Seitenzahl oben mittig
+%---------------------------------------------------------------------------
+% Layout
+   headsepline=on,%%         Linie unter der Seitenzahl
+   parskip=half,%%           Abstand zwischen Absaetzen
+%---------------------------------------------------------------------------
+% Briefkopf und Anschrift
+   fromalign=right,%%        Plazierung des Briefkopfs
+   fromphone=on,%%           Telefonnummer im Absender
+   fromrule=off,%%           Linie im Absender (aftername, afteraddress)
+   fromfax=on,%%            Faxnummer
+   fromemail=on,%%          Emailadresse
+   fromurl=on,%%            Homepage
+   fromlogo=off,%%           Firmenlogo
+   addrfield=on,%%           Adressfeld fuer Fensterkuverts
+   backaddress=on,%%          ...und Absender im Fenster
+   subject=beforeopening,%%  Plazierung der Betreffzeile
+   locfield=narrow,%%        zusaetzliches Feld fuer Absender
+   foldmarks=on,%%           Faltmarken setzen
+   numericaldate=off,%%      Datum numerisch ausgeben
+   refline=narrow,%%         Geschaeftszeile im Satzspiegel
+%---------------------------------------------------------------------------
+% Formatierung
+   draft=on%%                Entwurfsmodus
+]{scrlttr2}
+%---------------------------------------------------------------------------
+\usepackage{german}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{url}
+\usepackage{calc}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\makeatletter
+\@setplength{refwidth}{\textwidth}
+\@setplength{refhpos}{\useplength{toaddrhpos}}
+\setlength{\oddsidemargin}{\useplength{toaddrhpos}-1in}
+\makeatother
+%---------------------------------------------------------------------------
+% Fonts
+\setkomafont{fromname}{\sffamily \LARGE}
+\setkomafont{fromaddress}{\sffamily}%% statt \small
+\setkomafont{pagenumber}{\sffamily}
+\setkomafont{subject}{\mdseries}
+\setkomafont{backaddress}{\mdseries}
+\usepackage{mathptmx}%% Schrift Times
+%\usepackage{mathpazo}%% Schrift Palatino
+%\setkomafont{fromname}{\LARGE}
+%---------------------------------------------------------------------------
+\begin{document}
+%---------------------------------------------------------------------------
+% Briefstil und Position des Briefkopfs
+%\LoadLetterOption{KOMAold} %% oder: DINmtext, SN, SNleft, KOMAold.
+\makeatletter
+\@setplength{firstheadvpos}{20mm}
+\@setplength{firstheadwidth}{\paperwidth}
+\ifdim \useplength{toaddrhpos}>\z@
+  \@addtoplength[-2]{firstheadwidth}{\useplength{toaddrhpos}}
+\else
+  \@addtoplength[2]{firstheadwidth}{\useplength{toaddrhpos}}
+\fi
+\@setplength{foldmarkhpos}{6.5mm}
+\makeatother
+%---------------------------------------------------------------------------
+% Absender
+\setkomavar{fromname}{Graf Zahl GmbH}
+\setkomavar{fromaddress}{Nummergasse 123\\12345 Berlin}
+\setkomavar{fromphone}{12345 678890}
+\renewcommand{\phonename}{Telefon}
+\setkomavar{fromemail}{Graf@Zahl.de}
+\setkomavar{backaddressseparator}{  }
+\setkomavar{signature}{Graf Zahl}
+\setkomavar{frombank}{Blz:10010000\\ktn:1234567741}
+%\setkomavar{location}{\\[8ex]\raggedleft{\footnotesize{\usekomavar{fromaddress}\\
+%      Telefon: \usekomavar{fromphone}}}}%% Neben dem Adressfenster
+%---------------------------------------------------------------------------
+\firsthead{\textsc{\huge{\textcolor[rgb]{0.4,0.4,0.4}{GRAF ZAHL GmbH}}\\\footnotesize{\textlf{Wir setzen Daten in Bewegung}}}}
+%---------------------------------------------------------------------------
+\firstfoot{\footnotesize%
+	\rule[3pt]{\textwidth}{.4pt} \\
+	\begin{tabular}[t]{l@{}}% 
+		\usekomavar{fromname}\\
+		\usekomavar{fromaddress}\\
+	\end{tabular}%
+	\hfill
+	\begin{tabular}[t]{l@{}}%
+		Telefon:\usekomavar[\Mobilefone~]{fromphone}\\
+		email:\usekomavar[\Letter~]{fromemail}\\
+	\end{tabular}%
+	\ifkomavarempty{frombank}{}{%
+		\hfill
+		\begin{tabular}[t]{l@{}}%
+			Bankverbindung: \\
+			\usekomavar{frombank}
+		\end{tabular}%
+	}%
+}%
+%---------------------------------------------------------------------------
+% Geschaeftszeilenfelder
+%\setkomavar{place}{Ort}
+%\setkomavar{placeseparator}{, den }
+\setkomavar{date}{\today}
+%\setkomavar{yourmail}{1. 1. 2003}%% 'Ihr Schreiben...'
+%\setkomavar{yourref} {abcdefg}%%    'Ihr Zeichen...'
+%\setkomavar{myref}{}%%      Unser Zeichen
+\setkomavar{invoice}{123}%% Rechnungsnummer
+%\setkomavar{phoneseparator}{}
+%---------------------------------------------------------------------------
+% Versendungsart
+%\setkomavar{specialmail}{Einschreiben mit Rückschein}
+%---------------------------------------------------------------------------
+% Anlage neu definieren
+\renewcommand{\enclname}{Anlage}
+\setkomavar{enclseparator}{: }
+%---------------------------------------------------------------------------
+% Seitenstil
+\pagestyle{plain}%% keine Header in der Kopfzeile
+%---------------------------------------------------------------------------
+\begin{letter}{Wichtig AG\\Ausbeuter Weg 12\\D-54321 K\"oln}
+%---------------------------------------------------------------------------
+% Weitere Optionen
+\KOMAoptions{%%
+}
+%---------------------------------------------------------------------------
+\setkomavar{subject}{\textbf{Angebot zur Aussstattung eines Schulungsraums mit EDV}}
+%---------------------------------------------------------------------------
+\opening{Sehr geehrte Damen und Herren,}
+herzlichen Dank f\"ur Ihre Anfrage.
+Gerne unterbreiten wir Ihnen folgendes Angebot.
+
+Wir w\"urden uns sehr freuen, wenn unser Angebot Ihre Zustimmung findet.
+Sie haben Fragen oder w\"unschen weitere Informationen? Rufen Sie uns an, wir sind f\"ur Sie
+da.
+
+\closing{Mit freundlichen Gr\"u\ss{}en,}
+%---------------------------------------------------------------------------
+%\ps{PS:}
+%\encl{}
+%\cc{}
+%---------------------------------------------------------------------------
+\end{letter}
+%---------------------------------------------------------------------------
+\end{document}
+%-------------------------------------------------------------------
